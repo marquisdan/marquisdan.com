@@ -1,0 +1,194 @@
+﻿body {
+}
+
+/*********************************************************************************************/
+/*Nav bar color styles*/
+/*For more info:  http://stackoverflow.com/questions/18529274/change-navbar-color-in-twitter-bootstrap-3 */
+
+
+.NavBarGreenWhite{
+
+    background-color:green;
+    color:white;
+}
+
+.NavBarGreenWhite .navbar-nav > li > a {
+    color:white;
+}
+
+.NavBarGreenWhite .navbar-nav > .active > a, .navbar-nav > .active > a:hover, .navbar-nav > .active > a:focus {
+    color: white;
+    background-color: #51a544;
+}
+
+.NavBarGreenWhite .navbar-brand {
+    color:white;
+}
+
+.NavBarGreenWhite .navbar-nav > li > a:hover, .nav > li > a:focus { 
+    text-decoration: none; 
+    background-color: #51a544; 
+}
+
+
+.NavBarGreenWhite .navbar-collapse {
+  padding-right: 15px;
+  padding-left: 15px;
+  overflow-x: visible;
+  -webkit-overflow-scrolling: touch;
+  border-top: 1px solid transparent;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1);
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1);
+}
+
+.NavBarGreenWhite .navbar-collapse.in {
+  overflow-y: auto;
+}
+@media (min-width: 768px) {
+ .NavBarGreenWhite .navbar-collapse {
+    width: auto;
+    border-top: 0;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+  }
+ .NavBarGreenWhite .navbar-collapse.collapse {
+    display: block !important;
+    height: auto !important;
+    padding-bottom: 0;
+    overflow: visible !important;
+  }
+.NavBarGreenWhite  .navbar-collapse.in {
+    overflow-y: visible;
+  }
+.NavBarGreenWhite .navbar-fixed-top .navbar-collapse,
+  .navbar-static-top .navbar-collapse,
+  .navbar-fixed-bottom .navbar-collapse {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+.NavBarGreenWhite .navbar-fixed-top .navbar-collapse,
+.navbar-fixed-bottom .navbar-collapse {
+  max-height: 340px;
+}
+@media (max-device-width: 480px) and (orientation: landscape) {
+.NavBarGreenWhite .navbar-fixed-top .navbar-collapse,
+  .navbar-fixed-bottom .navbar-collapse {
+    max-height: 200px;
+  }
+}
+
+.NavBarGreenWhite navbar-toggle {
+  position: relative;
+  float: right;
+  padding: 9px 10px;
+  margin-top: 8px;
+  margin-right: 15px;
+  margin-bottom: 8px;
+  background-color: transparent;
+  background-image: none;
+  border: 1px solid white;
+  border-radius: 4px;
+}
+.NavBarGreenWhite .navbar-toggle:focus {
+  outline: 0;
+  background-color: #51a544;
+}
+.NavBarGreenWhite .navbar-toggle .icon-bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  border-radius: 1px;
+  border:1px solid white;
+}
+.NavBarGreenWhite .navbar-toggle .icon-bar + .icon-bar {
+  margin-top: 4px;
+}
+@media (min-width: 768px) {
+ .NavBarGreenWhite  .navbar-toggle {
+    display: none;
+  }
+ 
+.NavBarGreenWhite .navbar-toggle {
+  border-color: #ddd;
+}
+.NavBarGreenWhite  .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+  background-color: #ddd;
+}
+.NavBarGreenWhite  .navbar-toggle .icon-bar {
+  background-color: #888;
+}
+
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+  background-color: #51a544;
+    }
+
+
+
+
+/*******************************************************************************************/
+
+.indent{
+    text-indent: 50px;
+}
+
+.titleText {
+    font-size: x-large;
+    color: #103404;
+    }
+.marquisdan{
+    color: #103404;
+}
+
+/*Pointbuy menu stuff*/
+.statMenu{
+    display: inline-table;
+}
+}body {
+}
+
+
+ /********************************************************************************/
+
+ /* New GreenWhite Navbar from bootstrapdesigntools.com
+     http://bootstrapdesigntools.com/tools/bootstrap-menu-builder/ */
+/*
+ #navbar-custom-greenwhite.navbar-default .navbar-brand {
+    color: rgba(245, 245, 245, 1);
+}
+#navbar-custom-greenwhite.navbar-default {
+    font-size: 14px;
+    background-color: rgba(0, 166, 0, 1);
+    border-width: 1px;
+    border-radius: 4px;
+}
+#navbar-custom-greenwhite.navbar-default .navbar-nav>li>a {
+    color: rgba(245, 245, 245, 1);
+    background-color: rgba(0, 166, 0, 1);
+}
+#navbar-custom-greenwhite.navbar-default .navbar-nav>li>a:hover,
+#navbar-custom-greenwhite.navbar-default .navbar-nav>li>a:focus {
+    color: rgba(245, 245, 245, 1);
+    background-color: rgba(105, 181, 105, 1);
+}
+#navbar-custom-greenwhite.navbar-default .navbar-nav>.active>a,
+#navbar-custom-greenwhite.navbar-default .navbar-nav>.active>a:hover,
+#navbar-custom-greenwhite.navbar-default .navbar-nav>.active>a:focus {
+    color: rgba(245, 245, 245, 1);
+    background-color: rgba(105, 181, 105, 1);
+}
+#navbar-custom-greenwhite.navbar-default .navbar-toggle {
+    border-color: #69b569;
+}
+#navbar-custom-greenwhite.navbar-default .navbar-toggle:hover,
+#navbar-custom-greenwhite.navbar-default .navbar-toggle:focus {
+    background-color: #69b569;
+}
+#navbar-custom-greenwhite.navbar-default .navbar-toggle .icon-bar {
+    background-color: #69b569;
+}
+#navbar-custom-greenwhite.navbar-default .navbar-toggle:hover .icon-bar,
+#navbar-custom-greenwhite.navbar-default .navbar-toggle:focus .icon-bar {
+    background-color: #00a600;
+} */
