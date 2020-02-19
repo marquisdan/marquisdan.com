@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Pointbuy.aspx.cs" Inherits="Pathfinder_Pointbuy" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" Inherits="Pathfinder_Pointbuy" Codebehind="Pointbuy.aspx.cs" %>
 
 <!DOCTYPE html>
 

@@ -1,7 +1,7 @@
-﻿namespace Pathfinder
+﻿namespace marquisdanWAP.Pathfinder
 {
     /// <summary>
-    /// Summary description for races
+    /// Keeps track of race statistics for use in other classes
     /// </summary>
     public class Races
     {
@@ -19,7 +19,7 @@
         }
 
         /// <summary>
-        /// Initializes race aray
+        /// Initializes race array
         /// TODO: Update to get from a JSON or similar
         /// TODO: Update to dictionary
         /// </summary>
@@ -45,7 +45,6 @@
                 //Human
                 {0,0,0,0,0,0,1}
             };
-        
         }
     }
 }

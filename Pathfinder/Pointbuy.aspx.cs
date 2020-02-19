@@ -1,27 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-
+using marquisdanWAP.Pathfinder;
 
 
 public partial class Pathfinder_Pointbuy : System.Web.UI.Page
 {
-    private const int defaultPoints = 20; //default number of points
-    private const int defaultStat = 10; //default stat value 
-    private const int numStats = 5; //for array size
-    private const int rows = 6; //Rows in the table (used in setting up label arrays
-    private const int cols = 7; //cols in table (used in setting up label arrays)
+    private const int DefaultPoints = 20; //default number of points
+    private const int DefaultStat = 10; //default stat value 
+    private const int NumStats = 5; //for array size
+    private const int Rows = 6; //Rows in the table (used in setting up label arrays
+    private const int Cols = 7; //cols in table (used in setting up label arrays)
 
 
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Page.IsPostBack == false)
         {
-            pointBuyCalculator pb = new pointBuyCalculator(defaultPoints, defaultStat);
-            lblCurrentPointsVal.Text = pb.points.ToString();
+            var pb = new PointBuyCalculator(DefaultPoints, DefaultStat);
+            lblCurrentPointsVal.Text = pb.Points.ToString();
             Session["pb"] = pb;
             LinkAndUpdateLabels();
             Page.Title = "Dan's awesome Pathfinder Calculator!";
@@ -122,17 +118,17 @@ public partial class Pathfinder_Pointbuy : System.Web.UI.Page
         // lblStartingPointsTitle.Text = ddlStartingPoints.SelectedValue.ToString();
         if (ddlStartingPoints.SelectedIndex != 4)
         {
-            hideCustomPointValue(); //Hide custom point text box and button
-            pointBuyCalculator pb = new pointBuyCalculator(int.Parse(ddlStartingPoints.SelectedValue), defaultStat);
-            lblCurrentPointsVal.Text = pb.points.ToString();
+            HideCustomPointValue(); //Hide custom point text box and button
+            PointBuyCalculator pb = new PointBuyCalculator(int.Parse(ddlStartingPoints.SelectedValue), DefaultStat);
+            lblCurrentPointsVal.Text = pb.Points.ToString();
             Session["pb"] = pb;
             LinkAndUpdateLabels();
         }
         else
         {
-            showCustomPointValue(); //Show custom point text box and button
-            pointBuyCalculator pb = new pointBuyCalculator(defaultPoints, defaultStat);
-            tbxCustomPoints.Text = defaultPoints.ToString();
+            ShowCustomPointValue(); //Show custom point text box and button
+            PointBuyCalculator pb = new PointBuyCalculator(DefaultPoints, DefaultStat);
+            tbxCustomPoints.Text = DefaultPoints.ToString();
             Session["pb"] = pb;
             LinkAndUpdateLabels();
         }
@@ -144,8 +140,8 @@ public partial class Pathfinder_Pointbuy : System.Web.UI.Page
         try
         {
             tbxCustomPoints.BackColor = System.Drawing.ColorTranslator.FromHtml("#FFFFFF");
-            pointBuyCalculator pb = (pointBuyCalculator)Session["pb"];
-            pb.newPoints(int.Parse(tbxCustomPoints.Text), defaultStat);
+            PointBuyCalculator pb = (PointBuyCalculator)Session["pb"];
+            pb.newPoints(int.Parse(tbxCustomPoints.Text), DefaultStat);
             Session["pb"] = pb;
             LinkAndUpdateLabels();
         }
@@ -159,10 +155,10 @@ public partial class Pathfinder_Pointbuy : System.Web.UI.Page
     //Dropdown list to set race for user
     protected void ddlRace_SelectedIndexChanged(object sender, EventArgs e)
     {
-        pointBuyCalculator pb = (pointBuyCalculator)Session["pb"];
+        PointBuyCalculator pb = (PointBuyCalculator)Session["pb"];
         pb.ResetRaces(); //Set race stats to default
         //Check for custom point flag
-        if (pb.raceStats.RaceArray[ddlRace.SelectedIndex, 6] != 1)
+        if (pb.RaceStats.RaceArray[ddlRace.SelectedIndex, 6] != 1)
         {
             //Hide custom menu, recalculate
             ddlCustomStatChoice.Visible = false;
@@ -183,9 +179,9 @@ public partial class Pathfinder_Pointbuy : System.Web.UI.Page
     //dropdown list to change custom stat info
     protected void ddlCustomStatChoice_SelectedIndexChanged(object sender, EventArgs e)
     {
-        pointBuyCalculator pb = (pointBuyCalculator)Session["pb"];
+        PointBuyCalculator pb = (PointBuyCalculator)Session["pb"];
         pb.ResetRaces();
-        pb.raceStats.RaceArray[(ddlRace.SelectedIndex), ddlCustomStatChoice.SelectedIndex] = 2;
+        pb.RaceStats.RaceArray[(ddlRace.SelectedIndex), ddlCustomStatChoice.SelectedIndex] = 2;
         LinkAndUpdateLabels();
         Session["pb"] = pb;
     }
@@ -194,11 +190,11 @@ public partial class Pathfinder_Pointbuy : System.Web.UI.Page
     private void Reset()
     {
         /* Hide GUI for custom point values */
-        hideCustomPointValue();
+        HideCustomPointValue();
 
-        pointBuyCalculator pb = (pointBuyCalculator)Session["pb"];
+        PointBuyCalculator pb = (PointBuyCalculator)Session["pb"];
         pb.ResetRaces();
-        pb.newPoints(defaultPoints, defaultStat);
+        pb.newPoints(DefaultPoints, DefaultStat);
 
         Session["pb"] = pb;
         LinkAndUpdateLabels();
@@ -208,8 +204,8 @@ public partial class Pathfinder_Pointbuy : System.Web.UI.Page
     /* Creates an array to manage labels, updates gui */
     private void LinkAndUpdateLabels()
     {
-        pointBuyCalculator pb = (pointBuyCalculator)Session["pb"];
-        Label[,] statLabel = new Label[rows, cols];
+        PointBuyCalculator pb = (PointBuyCalculator)Session["pb"];
+        Label[,] statLabel = new Label[Rows, Cols];
         /* STR */
         statLabel[0, 0] = lblStrTitle;
         statLabel[0, 1] = lblStrValue;
@@ -265,46 +261,46 @@ public partial class Pathfinder_Pointbuy : System.Web.UI.Page
         statLabel[5, 6] = lblChaFinalMod;
 
         //Update columns for each row
-        for (int r = 0; r < rows; r++)
+        for (int r = 0; r < Rows; r++)
         {
             /*Key
              0 = Title, 
              1 = Current value, 2 = Mod, 3 = Points spent,
              4 = Racial, 5 = Final Value 6 = Final Mod */
-            statLabel[r, 1].Text = pb.stat[r].ToString();
-            statLabel[r, 2].Text = pb.FindMod(pb.stat[r]).ToString();
-            statLabel[r, 3].Text = pb.spent[r].ToString();
-            statLabel[r, 4].Text = pb.raceStats.RaceArray[ddlRace.SelectedIndex, r].ToString();
-            statLabel[r, 5].Text = pb.FindTotalStat(r, pb.raceStats.RaceArray[ddlRace.SelectedIndex, r]).ToString();
-            statLabel[r, 6].Text = pb.FindTotalMod(r, pb.raceStats.RaceArray[ddlRace.SelectedIndex, r]).ToString();
+            statLabel[r, 1].Text = pb.Stat[r].ToString();
+            statLabel[r, 2].Text = pb.FindMod(pb.Stat[r]).ToString();
+            statLabel[r, 3].Text = pb.Spent[r].ToString();
+            statLabel[r, 4].Text = pb.RaceStats.RaceArray[ddlRace.SelectedIndex, r].ToString();
+            statLabel[r, 5].Text = pb.FindTotalStat(r, pb.RaceStats.RaceArray[ddlRace.SelectedIndex, r]).ToString();
+            statLabel[r, 6].Text = pb.FindTotalMod(r, pb.RaceStats.RaceArray[ddlRace.SelectedIndex, r]).ToString();
         }
         //Update total points
-        lblCurrentPointsVal.Text = pb.points.ToString();
+        lblCurrentPointsVal.Text = pb.Points.ToString();
         //update session
         Session["pb"] = pb;
     }
 
     private void Increase(int i)
     {
-        pointBuyCalculator pb = (pointBuyCalculator)Session["pb"];
+        PointBuyCalculator pb = (PointBuyCalculator)Session["pb"];
         pb.IncrementStat(i, true);
         Session["pb"] = pb;
     }
 
     private void Decrease(int i)
     {
-        pointBuyCalculator pb = (pointBuyCalculator)Session["pb"];
+        PointBuyCalculator pb = (PointBuyCalculator)Session["pb"];
         pb.IncrementStat(i, false);
         Session["pb"] = pb;
     }
 
-    private void showCustomPointValue()
+    private void ShowCustomPointValue()
     {
         tbxCustomPoints.Visible = true;
         btnSetPoints.Visible = true;
     }
 
-    private void hideCustomPointValue()
+    private void HideCustomPointValue()
     {
         tbxCustomPoints.Visible = false;
         btnSetPoints.Visible = false;
