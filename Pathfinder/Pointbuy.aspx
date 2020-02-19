@@ -75,7 +75,7 @@
                             <!-- Stat Dropdwon menu and title -->
                             <td>
                                 <strong>
-                                    <asp:Label ID="lblStartingPointsTitle" runat="server" Text="Starting Points"></asp:Label>
+                                    <asp:Label AssociatedControlID="ddlStartingPoints" ID="lblStartingPointsTitle" runat="server" Text="Starting Points" ></asp:Label>
                                 </strong>
                                 <!-- Dropdown list to pick starting points -->
                                 <asp:DropDownList ID="ddlStartingPoints" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlStartingPoints_SelectedIndexChanged">
@@ -100,7 +100,7 @@
                             <!-- Race Dropdwon menu and title -->
                             <td>
                                 <strong>
-                                    <asp:Label ID="lblRaceTitle" runat="server" Text="Race"></asp:Label>
+                                    <asp:Label AssociatedControlID="ddlRace" ID="lblRaceTitle" runat="server" Text="Race"></asp:Label>
                                 </strong>
                                 <asp:DropDownList ID="ddlRace" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlRace_SelectedIndexChanged">
                                     <asp:ListItem Selected="True">Dwarf (+2 CON/WIS, -2 CHA)</asp:ListItem>

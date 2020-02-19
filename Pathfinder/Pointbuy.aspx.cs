@@ -160,9 +160,9 @@ public partial class Pathfinder_Pointbuy : System.Web.UI.Page
     protected void ddlRace_SelectedIndexChanged(object sender, EventArgs e)
     {
         pointBuyCalculator pb = (pointBuyCalculator)Session["pb"];
-        pb.resetRaces(); //Set race stats to default
+        pb.ResetRaces(); //Set race stats to default
         //Check for custom point flag
-        if (pb.raceStats.raceArray[ddlRace.SelectedIndex, 6] != 1)
+        if (pb.raceStats.RaceArray[ddlRace.SelectedIndex, 6] != 1)
         {
             //Hide custom menu, recalculate
             ddlCustomStatChoice.Visible = false;
@@ -184,8 +184,8 @@ public partial class Pathfinder_Pointbuy : System.Web.UI.Page
     protected void ddlCustomStatChoice_SelectedIndexChanged(object sender, EventArgs e)
     {
         pointBuyCalculator pb = (pointBuyCalculator)Session["pb"];
-        pb.resetRaces();
-        pb.raceStats.raceArray[(ddlRace.SelectedIndex), ddlCustomStatChoice.SelectedIndex] = 2;
+        pb.ResetRaces();
+        pb.raceStats.RaceArray[(ddlRace.SelectedIndex), ddlCustomStatChoice.SelectedIndex] = 2;
         LinkAndUpdateLabels();
         Session["pb"] = pb;
     }
@@ -197,7 +197,7 @@ public partial class Pathfinder_Pointbuy : System.Web.UI.Page
         hideCustomPointValue();
 
         pointBuyCalculator pb = (pointBuyCalculator)Session["pb"];
-        pb.resetRaces();
+        pb.ResetRaces();
         pb.newPoints(defaultPoints, defaultStat);
 
         Session["pb"] = pb;
@@ -272,11 +272,11 @@ public partial class Pathfinder_Pointbuy : System.Web.UI.Page
              1 = Current value, 2 = Mod, 3 = Points spent,
              4 = Racial, 5 = Final Value 6 = Final Mod */
             statLabel[r, 1].Text = pb.stat[r].ToString();
-            statLabel[r, 2].Text = pb.findMod(pb.stat[r]).ToString();
+            statLabel[r, 2].Text = pb.FindMod(pb.stat[r]).ToString();
             statLabel[r, 3].Text = pb.spent[r].ToString();
-            statLabel[r, 4].Text = pb.raceStats.raceArray[ddlRace.SelectedIndex, r].ToString();
-            statLabel[r, 5].Text = pb.findTotalStat(r, pb.raceStats.raceArray[ddlRace.SelectedIndex, r]).ToString();
-            statLabel[r, 6].Text = pb.findTotalMod(r, pb.raceStats.raceArray[ddlRace.SelectedIndex, r]).ToString();
+            statLabel[r, 4].Text = pb.raceStats.RaceArray[ddlRace.SelectedIndex, r].ToString();
+            statLabel[r, 5].Text = pb.FindTotalStat(r, pb.raceStats.RaceArray[ddlRace.SelectedIndex, r]).ToString();
+            statLabel[r, 6].Text = pb.FindTotalMod(r, pb.raceStats.RaceArray[ddlRace.SelectedIndex, r]).ToString();
         }
         //Update total points
         lblCurrentPointsVal.Text = pb.points.ToString();
@@ -287,14 +287,14 @@ public partial class Pathfinder_Pointbuy : System.Web.UI.Page
     private void Increase(int i)
     {
         pointBuyCalculator pb = (pointBuyCalculator)Session["pb"];
-        pb.incrementStat(i, true);
+        pb.IncrementStat(i, true);
         Session["pb"] = pb;
     }
 
     private void Decrease(int i)
     {
         pointBuyCalculator pb = (pointBuyCalculator)Session["pb"];
-        pb.incrementStat(i, false);
+        pb.IncrementStat(i, false);
         Session["pb"] = pb;
     }
 

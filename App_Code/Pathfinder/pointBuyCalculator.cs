@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Pathfinder;
 
 /// <summary>
 /// Does math for point buy systems for pathfinder utility
@@ -18,7 +19,7 @@ public class pointBuyCalculator
     public int[] stat { get; set; }
     public int[] spent { get; set; }
     public int points { get; set; }
-    public races raceStats { get; set; }
+    public Races raceStats { get; set; }
 
     /*
     Constructor defaults to 20 points if no value is provided
@@ -33,7 +34,7 @@ public class pointBuyCalculator
             stat[i] = defaultStat;
             spent[i] = 0;
         }
-        raceStats = new races();
+        raceStats = new Races();
     }
 
     /*
@@ -49,7 +50,7 @@ public class pointBuyCalculator
             stat[i] = startingStat;
             spent[i] = 0;
         }
-        raceStats = new races();
+        raceStats = new Races();
     }
 
     public void newPoints(int newPoints, int newStat)
@@ -63,19 +64,23 @@ public class pointBuyCalculator
             spent[i] = 0;
         }
     }
-    /*
-    Increments or decrements stat.
-    If passed bool is true, stat will increment
-    If passed bool is false, stat will decrement */
-    public void incrementStat(int s, bool increase)
+
+    /// <summary>
+    ///  Increments or decrements stat.
+    ///  If passed bool is true, stat will increment
+    ///  If passed bool is false, stat will decrement
+    /// </summary>
+    /// <param name="s">stat to increase/decrease</param>
+    /// <param name="increase">true = increment, false = decrement</param>
+    public void IncrementStat(int s, bool increase)
     {
         int step = 0; //value to be added/subtracted
         if (increase)
         {
             //Check if enough points avail then increment stat
-            if ( points > 0 && stat[s] < statCap && findCost(stat[s], true) <= points )
+            if ( points > 0 && stat[s] < statCap && FindCost(stat[s], true) <= points )
             {
-                step = (findCost(stat[s], true));
+                step = (FindCost(stat[s], true));
                 points -= step;
                 spent[s] += step;
                 stat[s]++;
@@ -87,7 +92,7 @@ public class pointBuyCalculator
             //Check if stat[s] is above floor, then decrement stat
             if (stat[s] > statFloor)
             {
-                step += (findCost(stat[s], false));
+                step += (FindCost(stat[s], false));
                 points += step;
                 spent[s] -= step;
                 stat[s]--;
@@ -96,18 +101,19 @@ public class pointBuyCalculator
     }
 
 
-    /**
-    Calculates the amount of points it costs to increment or decrement a stat 
-    Based on pathfinder point buy costs 
-    */
-    protected int findCost(int input, bool increase)
+    /// <summary>
+    ///  Calculates the amount of points it costs to increment or decrement a stat
+    ///  Based on pathfinder point buy costs
+    /// </summary>
+    /// <param name="input">Starting value</param>
+    /// <param name="increase">true = increase, false = decrease</param>
+    /// <returns></returns>
+    protected int FindCost(int input, bool increase)
     {
         //initialize cost
         int cost = 0; 
 
-        /**
-        Convert intput number to user's target value (eg. User is at 10, wants to go to 11.. convert 10 to 11 to find cost)
-        */
+        //Convert input number to user's target value (eg. User is at 10, wants to go to 11.. convert 10 to 11 to find cost)
         if (increase && input > 9)
         {
             input += 1;
@@ -118,9 +124,7 @@ public class pointBuyCalculator
             input -= 1;
         }
         
-        /**
-        Find cost. Forumla changes depending on if number is below 10, between 10 and 14, and 1+
-        */
+        //Find cost. Forumla changes depending on if number is below 10, between 10 and 14, and 1+
         if ( input > 10 && input < 14)
         {
             cost = 1;
@@ -142,7 +146,7 @@ public class pointBuyCalculator
     }
 
     //Returns calculated modifier for a given stat. 
-    public int findMod(int i)
+    public int FindMod(int i)
     {
 
         int mod = 0;  //calculated stat modifier to be returned.
@@ -158,20 +162,20 @@ public class pointBuyCalculator
     }
 
     //Returns total stat including racial bonus
-    public int findTotalStat(int s, int r)
+    public int FindTotalStat(int s, int r)
     {
         return (stat[s] + r);
     }
 
     //Returns modifier for total stat + racial bonus
-    public int findTotalMod(int s, int r)
+    public int FindTotalMod(int s, int r)
     {
-        return findMod(stat[s]) + ( (int)Math.Floor((decimal)r / 2) );
+        return FindMod(stat[s]) + ( (int)Math.Floor((decimal)r / 2) );
     }
 
     //Reset races to defualt values
-    public void resetRaces()
+    public void ResetRaces()
     {
-        raceStats = new races();
+        raceStats = new Races();
     }
 }
