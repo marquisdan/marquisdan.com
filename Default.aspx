@@ -8,11 +8,17 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
-        <h1> Welcome to Marquisdan.com</h1>
+    <div class="jumbotron">
+        <h1> Welcome to marquisdan.com</h1>
         There's really no content on the landing page. You should go to my pathfinder page instead. 
-        <a href="/Pathfinder/Pathfinder.aspx">Pathfinder</a>
-        <a href="/Pathfinder/Pointbuy.aspx">Pointbuy</a>
+        <ul>
+            <li>
+                <a href="/Pathfinder/Default.aspx">Pathfinder Home</a>
+            </li>
+            <li>
+                <a href="/Pathfinder/Pointbuy.aspx">Pointbuy Calculator</a>
+            </li>
+        </ul>
     </div>
     </form>
 </body>

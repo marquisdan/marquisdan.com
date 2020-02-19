@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" Inherits="Pathfinder_Pathfinder" Codebehind="Pathfinder.aspx.cs" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" Inherits="Pathfinder_Pathfinder" Codebehind="Default.aspx.cs" %>
 
 <!DOCTYPE html>
 
@@ -27,22 +27,22 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#PathfinderNavToggleMenu" aria-controls="PathfinderNavToggleMenu" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand" href="#">marquisdan.com</a>
+                <a class="navbar-brand" href="/Default.aspx">marquisdan.com</a>
 
                 <div class="collapse navbar-collapse" id="PathfinderNavToggleMenu">
                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle text-white" href="/Default.aspx" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Pathfinder
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="background-color: DarkGreen">
-                                <a href="Pathfinder.aspx" class="nav-link text-white">Home </a>
+                                <a href="Default.aspx" class="nav-link text-white">Home </a>
                                 <a href="Pointbuy.aspx" class="nav-link text-white">Point Buy Utility</a>
                             </div>
                         </li>
                     </ul>
                 </div>
-            </nav> 
+            </nav>  
 
             <div class="container-fluid">
                 <div class="jumbotron">
