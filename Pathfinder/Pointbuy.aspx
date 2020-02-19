@@ -12,7 +12,7 @@
 
     <!-- Javascript to get the dang dropdown menu to work -->
     <!-- See  http://stackoverflow.com/questions/21012382/bootstrap-navbar-dropdown-not-working-in-asp-net -->
-    <script type="text/javascript" src="../Scripts/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery-3.4.1.js"></script>
     <script type="text/javascript" src="../Scripts/bootstrap.js"></script>
 
     <!-- Link Twitter Bootstrap CSS and my own personal custom CSS -->
@@ -22,43 +22,32 @@
 </head>
 
 <body style="background-color: whitesmoke">
-<!-- <body style="background-color: green"> -->
 
-    <form id="form1" runat="server">
+<form id="form1" runat="server">
 
-        <!--Navbar-->
-        <nav class="navbar NavBarGreenWhite">
-            <div class="container-fluid">
-                <!--Navbar Head -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#MainNavMenu">
-                        <span class="sr-only">Collapsed Menu</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <!--Logo/Branding-->
-                    <a class="navbar-brand" href="../Default.aspx/">MarquisDan.com</a>
-                </div>
-            
-                <!-- Navbar body (collapsible) -->
-                <div class="collapse navbar-collapse nav" id="MainNavMenu">
-                    <ul class="nav navbar-nav">
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: DarkGreen">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#PathfinderNavToggleMenu" aria-controls="PathfinderNavToggleMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="#">marquisdan.com</a>
 
-                        <!-- Pathfinder Dropdown menu -->
-                        <li class="dropdown">
-                            <a href="Pathfinder.aspx" class="dropdown-toggle" data-toggle="dropdown">Pathfinder<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="Pathfinder.aspx">Pathfinder Home </a></li>
-                                <li><a href="Pointbuy.aspx">Pathfinder Point Buy Utility</a></li>
-                            </ul>
-                        </li>
+        <div class="collapse navbar-collapse" id="PathfinderNavToggleMenu">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Pathfinder
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="background-color: DarkGreen">
+                        <a href="Pathfinder.aspx" class="nav-link text-white">Home </a>
+                        <a href="Pointbuy.aspx" class="nav-link text-white">Point Buy Utility</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>  
 
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <!-- Script manager for AJAX -->
+    <!-- Script manager for AJAX -->
        <asp:ScriptManager ID ="ScriptManagerPointBuy" runat="server" /> 
         <!-- Update Panel for stat table and menu -->
        <asp:UpdatePanel ID="UpdatePanelPointBuy" runat="server" >
