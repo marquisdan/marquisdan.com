@@ -10,8 +10,8 @@ namespace marquisdanWAP.Pathfinder
     {
         private const int StatFloor = 7; //minimum allowed stat
         private const int StatCap = 18; //maximum allowed stat;
-        private const int DefaultPoints = 20; //default starting points
-        private const int DefaultStat = 10; //default stat starting value
+        protected internal const int DefaultPoints = 20; //default starting points
+        protected internal const int DefaultStat = 10; //default stat starting value
         private const int NumStats = 6; //number of stats
 
         public int[] Stat { get; set; }
@@ -19,15 +19,15 @@ namespace marquisdanWAP.Pathfinder
         public int Points { get; set; }
         public Races RaceStats { get; set; }
 
-        /*
-        Constructor defaults to 20 points if no value is provided
-        */
+        /// <summary>
+        /// Non parameterized constructor defaults to 20 points
+        /// </summary>
         public PointBuyCalculator()
         {
             Stat = new int[NumStats];
             Spent = new int[NumStats];
             Points = DefaultPoints;
-            for (int i =0 ; i <= NumStats; i++)
+            for (int i =0 ; i < NumStats; i++)
             {
                 Stat[i] = DefaultStat;
                 Spent[i] = 0;
@@ -35,9 +35,11 @@ namespace marquisdanWAP.Pathfinder
             RaceStats = new Races();
         }
 
-        /*
-    Constructor to set points to user provided value
-    */
+        /// <summary>
+        /// Paramaterized constructor creates a calculator with a given number of points to spend
+        /// </summary>
+        /// <param name="startingPoints"></param>
+        /// <param name="startingStat"></param>
         public PointBuyCalculator(int startingPoints, int startingStat)
         {
             Stat = new int[NumStats];
@@ -51,7 +53,12 @@ namespace marquisdanWAP.Pathfinder
             RaceStats = new Races();
         }
 
-        public void newPoints(int newPoints, int newStat)
+        /// <summary>
+        /// Resets points to a custom value
+        /// </summary>
+        /// <param name="newPoints"></param>
+        /// <param name="newStat"></param>
+        public void ResetPoints(int newPoints, int newStat)
         {
             Stat = new int[NumStats];
             Spent = new int[NumStats];
@@ -64,99 +71,43 @@ namespace marquisdanWAP.Pathfinder
         }
 
         /// <summary>
-        ///  Increments or decrements stat.
-        ///  If passed bool is true, stat will increment
-        ///  If passed bool is false, stat will decrement
+        /// Sets points to default value
         /// </summary>
-        /// <param name="s">stat to increase/decrease</param>
-        /// <param name="increase">true = increment, false = decrement</param>
-        public void IncrementStat(int s, bool increase)
+        public void ResetPointsToDefault()
         {
-            int step = 0; //value to be added/subtracted
-            if (increase)
-            {
-                //Check if enough points avail then increment stat
-                if ( Points > 0 && Stat[s] < StatCap && FindCost(Stat[s], true) <= Points )
-                {
-                    step = (FindCost(Stat[s], true));
-                    Points -= step;
-                    Spent[s] += step;
-                    Stat[s]++;
-                }
-            }
-
-            else if (!increase)
-            {
-                //Check if stat[s] is above floor, then decrement stat
-                if (Stat[s] > StatFloor)
-                {
-                    step += (FindCost(Stat[s], false));
-                    Points += step;
-                    Spent[s] -= step;
-                    Stat[s]--;
-                }
-            }   
+            ResetPoints(DefaultPoints, DefaultStat);
         }
-
 
         /// <summary>
-        ///  Calculates the amount of points it costs to increment or decrement a stat
-        ///  Based on pathfinder point buy costs
+        /// Increase a stat (unless we are already at max)
         /// </summary>
-        /// <param name="input">Starting value</param>
-        /// <param name="increase">true = increase, false = decrease</param>
-        /// <returns></returns>
-        protected int FindCost(int input, bool increase)
+        /// <param name="s"></param>
+        internal void IncrementStat(int s)
         {
-            //initialize cost
-            int cost = 0; 
-
-            //Convert input number to user's target value (eg. User is at 10, wants to go to 11.. convert 10 to 11 to find cost)
-            if (increase && input > 9)
+            //Check if enough points avail & we are under max, then increment stat
+            if (Points > 0 && Stat[s] < StatCap && PointBuyUtils.FindCost(Stat[s], true) <= Points)
             {
-                input += 1;
+                var step = (PointBuyUtils.FindCost(Stat[s], true));
+                Points -= step;
+                Spent[s] += step;
+                Stat[s]++;
             }
-
-            else if ( !increase && input <=10 )
-            {
-                input -= 1;
-            }
-        
-            //Find cost. Forumla changes depending on if number is below 10, between 10 and 14, and 1+
-            if ( input > 10 && input < 14)
-            {
-                cost = 1;
-            }
-
-            if (input > 13)
-            {
-                cost = (int)Math.Floor((decimal)((input - 10) / 2));
-            }
-
-            if (input < 10)
-            {
-                cost = (int)Math.Ceiling((decimal) ((10 - input) / 2.0)) * -1;
-            }
-
-            /*Returns absolute value of calculated cost.
-        Shouldn't have to convert absolute value since everything is cast to int but does anyway to prevent unforseen errors */
-            return Math.Abs(cost);
         }
 
-        //Returns calculated modifier for a given stat. 
-        public int FindMod(int i)
+        /// <summary>
+        /// Decrease a stat (unless we are already at min)
+        /// </summary>
+        /// <param name="s"></param>
+        internal void DecrementStat(int s)
         {
-
-            int mod = 0;  //calculated stat modifier to be returned.
-            if (i < 10)
+            //Check if stat[s] is above floor, then decrement stat
+            if (Stat[s] > StatFloor)
             {
-                mod = (int) Math.Floor( (10 - (decimal) i) / -2 );
+                var step = (PointBuyUtils.FindCost(Stat[s], false));
+                Points += step;
+                Spent[s] -= step;
+                Stat[s]--;
             }
-            else if (i >= 10)
-            {
-                mod = (int) Math.Floor( (decimal)(i - 10) / 2) ;
-            }
-            return mod;
         }
 
         //Returns total stat including racial bonus
@@ -168,10 +119,10 @@ namespace marquisdanWAP.Pathfinder
         //Returns modifier for total stat + racial bonus
         public int FindTotalMod(int s, int r)
         {
-            return FindMod(Stat[s]) + ( (int)Math.Floor((decimal)r / 2) );
+            return PointBuyUtils.FindMod(Stat[s]) + ( (int)Math.Floor((decimal)r / 2) );
         }
 
-        //Reset races to defualt values
+        //Reset races to default values
         public void ResetRaces()
         {
             RaceStats = new Races();

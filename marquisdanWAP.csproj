@@ -252,6 +252,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Code\Pathfinder\PointBuyUtils.cs" />
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
@@ -277,6 +278,7 @@
     <Compile Include="App_Code\Pathfinder\PointBuyCalculator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Test\Pathfinder\PointBuyCalculatorTest.cs" />
+    <Compile Include="Test\Pathfinder\PointBuyUtilsTest.cs" />
     <Compile Include="Test\Pathfinder\RacesTest.cs" />
   </ItemGroup>
   <ItemGroup>
