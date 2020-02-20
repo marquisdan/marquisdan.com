@@ -268,11 +268,11 @@ public partial class Pathfinder_Pointbuy : System.Web.UI.Page
              1 = Current value, 2 = Mod, 3 = Points spent,
              4 = Racial, 5 = Final Value 6 = Final Mod */
             statLabel[r, 1].Text = pb.Stat[r].ToString();
-            statLabel[r, 2].Text = pb.FindMod(pb.Stat[r]).ToString();
+            statLabel[r, 2].Text = pb.PointBuyUtils.FindMod(pb.Stat[r]).ToString();
             statLabel[r, 3].Text = pb.Spent[r].ToString();
             statLabel[r, 4].Text = pb.RaceStats.RaceArray[ddlRace.SelectedIndex, r].ToString();
-            statLabel[r, 5].Text = pb.FindTotalStat(r, pb.RaceStats.RaceArray[ddlRace.SelectedIndex, r]).ToString();
-            statLabel[r, 6].Text = pb.FindTotalMod(r, pb.RaceStats.RaceArray[ddlRace.SelectedIndex, r]).ToString();
+            statLabel[r, 5].Text = pb.PointBuyUtils.FindTotalStat(r, pb.RaceStats.RaceArray[ddlRace.SelectedIndex, r]).ToString();
+            statLabel[r, 6].Text = pb.PointBuyUtils.FindTotalMod(r, pb.RaceStats.RaceArray[ddlRace.SelectedIndex, r]).ToString();
         }
         //Update total points
         lblCurrentPointsVal.Text = pb.Points.ToString();
