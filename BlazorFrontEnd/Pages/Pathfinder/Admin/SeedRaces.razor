@@ -1,0 +1,46 @@
+﻿@page "/pathfinder/seedraces"
+@using DBAccess.DataService.Pathfinder
+
+@inject IRaceDataService db
+
+@if (_success)
+{
+    <div class="text-success bg-dark">
+        Races seeded
+    </div>
+}
+else
+{
+    <div class="bg-dark text-danger">
+        <h1>Unable to seed races</h1>
+        <p>@_errorMsg</p>
+        <p>@_errorStack</p>
+    </div>
+}
+
+
+
+
+@code {
+
+    private bool _success = false;
+    private string _errorStack;
+    private string _errorMsg;
+
+    protected override Task OnParametersSetAsync()
+    {
+        try
+        {
+            db.SeedRaces();
+            _success = true;
+        }
+        catch(Exception e)
+        {
+            _errorMsg = e.Message;
+            _errorStack = e.StackTrace;
+        }
+
+        return base.OnParametersSetAsync();
+    }
+
+}

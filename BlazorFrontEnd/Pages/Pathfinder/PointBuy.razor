@@ -1,0 +1,156 @@
+﻿@page "/pathfinder/pointbuy"
+@using DBAccess.DataService.Pathfinder
+@using PathfinderLogicLibrary.StaticData
+@using PathfinderLogicLibrary.Utils
+@using PathfinderLogicLibrary.Utils.PointBuy
+@inject IPointBuyUtil PointBuyUtil
+@inject IRaceDataService RaceRepository
+@inject IStringUtils PfStringUtils
+
+<h3>Point Buy Utility</h3>
+
+<div id="raceFilter" class="row" >
+    <div class="col-lg-8">
+        @if (_raceTabs == null || _raceTabs.Count == 0 )
+        {
+          <span>Loading race filter... </span>
+        }
+        else
+        {
+            <div id="raceButtons" class="row my-1">
+                <div class="col-auto mr-auto font-weight-bold h5 text-nowrap ">Filter Races:</div>
+                <div class=" col-auto ml-auto"><button class="btn btn-success" @onclick="@HandleOnUseCustomRace">Use Custom</button></div>
+            </div>
+            <TabPanel NavCss="nav nav-pills" Tabs=@_raceTabs HideTabContents="@_shouldHideRacePicker" OnSelected="@HandleOnSelectedRace"/>
+        }
+    </div>
+</div>
+
+<div id="raceInfo" class="row py-2">
+    <div class="col-md-8" >
+        <div class="row">
+            <div class="col-lg-auto mr-auto py-2">
+                <span class="font-weight-bold h5">Selected Race:</span>
+                <span class="h5">@_selectedRaceModel.Name</span>
+            </div>
+            <div class="col-lg-auto ml-auto py-2">
+                @if (string.IsNullOrEmpty(_selectedRaceBonusString) == false)
+                {
+                    <span class="font-weight-bold h5">Bonuses:</span>
+                    <span class="h5 text-nowrap">@_selectedRaceBonusString</span>
+                }
+
+                else if (_showBonusPicker)
+                {
+
+                    <span class="font-weight-bold">Pick a stat to add +2</span>
+                    <ButtonGroup ButtonNames="StatNames.ListStatNames" OnSelected="@HandleBonusStatButton"></ButtonGroup>
+                }
+                else if (_showCustomRaceControls)
+                {
+                    @foreach (var stat in _currentRacialBonusDictionary)
+                    {
+                        <span>
+                            <label class="font-weight-bold">
+                                @GetStatAbbr(stat):
+                                <input class="form-control short-input-text" type="number" @bind="@_currentRacialBonusDictionary[stat.Key]" />
+                            </label>
+                        </span>
+
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="PBCalculatorInfo">
+    <div id="pointsRow" class="row py-2">
+        <div class="col-lg-8">
+            <!--match table width-->
+            <div class="row">
+                <!--Points Select-->
+                <div class="col-md-auto mr-md-auto">
+                    <label class="font-weight-bold">
+                        Starting Points
+                        <select id="selectStartingPoints" name="starting points" value="@PointBuyUtil.DefaultStartingPoints" @onchange="@OnSelectPoints">
+                            @foreach (var category in PointCategoryDictionary)
+                            {
+                                <option value="@category.Value">@($"{category.Key}{(category.Value != -1 ? ": " +category.Value.ToString() : "")}")</option>
+                            }
+                        </select>
+                    </label>
+
+                </div>
+
+                <!--Custom Race Points Control-->
+                @if (_showCustomStartingPoints)
+                {
+                    <div class="col-auto mr-md-auto">
+                        <label class="font-weight-bold">
+                            Custom Points:
+                            <input type="number" @onchange="@HandleOnEnterCustomPoints"/>
+                        </label>
+                    </div>
+                }
+
+                <!--Points Display-->
+                <div id="pointsDisplay" class="col-auto ml-md-auto mr-md-1 mr-auto">
+                    <label class="font-weight-bold h4">
+                        Points:
+                        <span>@_points</span>
+                    </label>
+                </div>
+
+                <!--Reset Button-->
+                <div id="resetButton" class="col-auto ml-md-1 ml-auto">
+                    <button class="btn btn-primary" @onclick="ResetStats">Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (_baseStatDictionary.Count == 0)
+    {
+        <div>
+            <span>Loading table.. </span>
+        </div>
+        
+    }
+    else { 
+        <div id="tableContainer" class="row">
+            <div id="PointbuyTable" class="col-lg-8">
+                <table class="table table-striped table-bordered table-sm text-center">
+                    <caption class="sr-only">Table for calculating character statistics using the Pathfinder Pointbuy system</caption>
+                    <thead class="thead-dark">
+                        <th scope="col">Stat</th>
+                        <th scope="col">Base</th>
+                        <th scope="col">Racial</th>
+                        <th scope="col">Final</th>
+                        <th scope="col">Mod</th>
+                    </thead>
+                    <tbody>
+                        @foreach (var stat in _baseStatDictionary)
+                        {
+                            <tr>
+                                <th scope="row">@GetStatAbbr(stat)</th>
+                                <td>
+                                    <button class="btn btn-secondary px-2 mr-3" @onclick="() => DecreaseStat(stat.Key)">
+                                      <span class="oi oi-minus"></span>
+                                    </button>
+                                    <span>@stat.Value</span>
+                                    <button class="btn btn-primary px-2 ml-3" @onclick="() => IncreaseStat(stat.Key)">
+                                        <span class="oi oi-plus"></span>
+                                    </button>
+                                </td>
+                                <td>@_currentRacialBonusDictionary[stat.Key]</td>
+                                <td>@CalculateFinal(@stat.Key)</td>
+                                <td>@CalculateMod(CalculateFinal(@stat.Key))</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+</div>
