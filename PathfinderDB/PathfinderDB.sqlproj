@@ -74,5 +74,6 @@
     <None Include="dbo\PathfinderDB.publish.xml" />
     <None Include="dbo\PathfinderDB_Remote.publish.xml" />
     <None Include="dbo\Copy of PathfinderDB_Remote.publish.xml" />
+    <None Include="PathfinderDB_TMD_Hosting.publish.xml" />
   </ItemGroup>
 </Project>

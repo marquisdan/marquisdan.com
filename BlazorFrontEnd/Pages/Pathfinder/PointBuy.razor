@@ -21,7 +21,7 @@
                 <div class="col-auto mr-auto font-weight-bold h5 text-nowrap ">Filter Races:</div>
                 <div class=" col-auto ml-auto"><button class="btn btn-success" @onclick="@HandleOnUseCustomRace">Use Custom</button></div>
             </div>
-            <TabPanel NavCss="nav nav-pills" Tabs=@_raceTabs HideTabContents="@_shouldHideRacePicker" OnSelected="@HandleOnSelectedRace"/>
+            <TabPanel NavCss="nav nav-tabs" Tabs=@_raceTabs HideTabContents="@_shouldHideRacePicker" OnSelected="@HandleOnSelectedRace"/>
         }
     </div>
 </div>
@@ -51,7 +51,7 @@
                     @foreach (var stat in _currentRacialBonusDictionary)
                     {
                         <span>
-                            <label class="font-weight-bold">
+                            <label class="font-weight-bold m-1">
                                 @GetStatAbbr(stat):
                                 <input class="form-control short-input-text" type="number" @bind="@_currentRacialBonusDictionary[stat.Key]" />
                             </label>
@@ -76,7 +76,7 @@
                         <select id="selectStartingPoints" name="starting points" value="@PointBuyUtil.DefaultStartingPoints" @onchange="@OnSelectPoints">
                             @foreach (var category in PointCategoryDictionary)
                             {
-                                <option value="@category.Value">@($"{category.Key}{(category.Value != -1 ? ": " +category.Value.ToString() : "")}")</option>
+                                <option value="@category.Value">@($"{category.Key}{(category.Value != -1 ? ": " + category.Value : "")}")</option>
                             }
                         </select>
                     </label>
