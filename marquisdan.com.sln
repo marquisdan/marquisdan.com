@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30804.86
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorFrontEnd", "BlazorFrontEnd\BlazorFrontEnd.csproj", "{C32A827A-A123-4460-83A9-A8C4BB678CA6}"
 EndProject
@@ -9,7 +9,7 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "PathfinderDB", "PathfinderD
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBAccess", "Data Access\DBAccess.csproj", "{E17D1CE0-4E93-421F-8243-CB98726A7696}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PathfinderLogicLibrary", "PathfinderLogicLibrary\PathfinderLogicLibrary.csproj", "{2B7D4461-393E-47D1-8E8B-DF35AABEEF2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PathfinderLogicLibrary", "PathfinderLogicLibrary\PathfinderLogicLibrary.csproj", "{2B7D4461-393E-47D1-8E8B-DF35AABEEF2A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

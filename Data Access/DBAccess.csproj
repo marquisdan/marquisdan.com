@@ -11,8 +11,8 @@
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
   </ItemGroup>
 
-  <ItemGroup>
+  <!--<ItemGroup>
     <ProjectReference Include="..\PathfinderDB\PathfinderDB.sqlproj" />
-  </ItemGroup>
+  </ItemGroup>-->
 
 </Project>
