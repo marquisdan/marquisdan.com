@@ -1,4 +1,4 @@
-name: .NET
+name: Build_And_Deploy
 
 on:
   push:
